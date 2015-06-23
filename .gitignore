@@ -56,3 +56,4 @@ docs/_build/
 # PyBuilder
 target/
 client_secrets.json
+client_secrets.ini
