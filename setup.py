@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 
-PROJECT = 'redditapicli'
+PROJECT = 'redditcli'
 VERSION = '0.1'
 
 from setuptools import setup, find_packages
@@ -14,8 +14,29 @@ setup(
     name=PROJECT,
     version=VERSION,
 
-    description='Python app for calling Reddit API'
-    long_description=long_description,
+    description='Demo app for test',
+
+    author='Gobin Sougrakpam',
+
+
+    entry_points={
+        'console_scripts': [
+            'redditcli = redditcli.main:main'
+        ],
+        'redditcli.test': [
+            'list = redditcli.list:Files',
+        ],
+    },
+
+    zip_safe=False,
+)
+
+"""
+setup(
+    name=PROJECT,
+    version=VERSION,
+
+    description='Python app for calling Reddit API',
 
     author='Gobin Sougrakpam',
     author_email='gobin.sougrakpam@gmail.com',
@@ -30,3 +51,5 @@ setup(
 
 
 	)
+
+"""

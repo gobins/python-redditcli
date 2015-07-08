@@ -4,7 +4,7 @@ import sys
 from cliff.app import App
 from cliff.commandmanager import CommandManager
 
-class RedditCli(App):
+class RedditApiCli(App):
 
     log = logging.getLogger(__name__)
 
@@ -12,7 +12,7 @@ class RedditCli(App):
         super(RedditApiCli, self).__init__(
             description='Reddit API CLI',
             version='0.1',
-            command_manager=CommandManager('redditcli.test'),
+            command_manager=CommandManager('cliff.redditcli'),
         )
 
     def initialize_app(self, argv):
@@ -27,7 +27,7 @@ class RedditCli(App):
             self.log.debug('got an error: %s', err)
 
 def main(argv=sys.argv[1:]):
-    myapp = RedditCli()
+    myapp = RedditApiCli()
     return myapp.run(argv)
 
 if __name__=='__main__':

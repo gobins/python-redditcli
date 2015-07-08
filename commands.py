@@ -2,7 +2,7 @@ import logging
 
 from cliff.command import Command
 
-class GetIdemtity(Command):
+class GetIdentity(Command):
     """Command to get the identity of the user."""
 
     log = logging.getLogger(__name__)
