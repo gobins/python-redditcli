@@ -57,3 +57,5 @@ docs/_build/
 target/
 client_secrets.json
 client_secrets.ini
+.idea/
+.DS_Store
