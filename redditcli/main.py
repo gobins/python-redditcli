@@ -12,7 +12,7 @@ class RedditApiCli(App):
         super(RedditApiCli, self).__init__(
             description='Reddit API CLI',
             version='0.1',
-            command_manager=CommandManager('cliff.redditcli'),
+            command_manager=CommandManager('redditcli.api'),
         )
 
     def initialize_app(self, argv):

@@ -1,15 +1,19 @@
 #!/usr/bin/env python
 
-PROJECT = 'redditcli'
-VERSION = '0.1'
-
-from setuptools import setup, find_packages
+import setuptools
 
 try:
-	long_description = open('README.rst', 'rt').read()
-except IOError:
-	long_description = ''
+    import multiprocessing
+except ImportError:
+    pass
 
+
+setuptools.setup(
+    setup_requires=['pbr'],
+    pbr=True
+)
+
+"""
 setup(
     name=PROJECT,
     version=VERSION,
@@ -17,6 +21,7 @@ setup(
     description='Demo app for test',
 
     author='Gobin Sougrakpam',
+    packages=['redditcli'],
 
 
     entry_points={
@@ -30,26 +35,4 @@ setup(
 
     zip_safe=False,
 )
-
-"""
-setup(
-    name=PROJECT,
-    version=VERSION,
-
-    description='Python app for calling Reddit API',
-
-    author='Gobin Sougrakpam',
-    author_email='gobin.sougrakpam@gmail.com',
-
-    url='https://github.com/gobins/python-reddit-api',
-    platform=['Any']
-
-
-
-
-
-
-
-	)
-
 """
