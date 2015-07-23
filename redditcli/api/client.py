@@ -1,17 +1,22 @@
 from __future__ import print_function
 import requests
 from redditcli.api import httpclient
+import logging
 
 
 class Client(object):
+
+    log = logging.getLogger(__name__)
+
     def __init__(self, base_url, auth_url, username=None, password=None,
-                 client_id=None, client_secret=None, user_agent=None):
+                 client_id=None, client_secret=None, user_agent=None, auth_token=None):
 
         if auth_url:
             (auth_token, expires_in, scope, token_type) = (
-                self.get_auth(auth_url, username, password,
-                              client_id, client_secret)
+                self.get_auth_token(auth_url, username, password,
+                                    client_id, client_secret)
             )
+        self.log.debug('Initializing Client class')
 
         if not base_url:
             base_url = 'http://reddit.com'
@@ -23,6 +28,8 @@ class Client(object):
 
     def get_auth_token(self, auth_url=None, username=None, password=None,
                        client_id=None, client_secret=None):
+
+        self.log.debug('Retrieving authentication token')
         client_auth = requests.auth.HTTPBasicAuth(
             client_id,
             client_secret
@@ -45,3 +52,16 @@ class Client(object):
         )
         data = response.json()
         return data['access_token'], data['expires_in'], data['scope'], data['token_type']
+
+
+def getClient(base_url=None, auth_url=None, username=None,
+              password=None, client_id=None, client_secret=None, user_agent=None, auth_token=None):
+    return Client(
+        base_url=base_url,
+        auth_url=auth_url,
+        username=username,
+        password=password,
+        client_id=client_id,
+        client_secret=client_secret,
+        auth_token=auth_token
+    )

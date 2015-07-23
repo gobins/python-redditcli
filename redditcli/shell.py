@@ -10,9 +10,10 @@ import sys
 
 from cliff import app
 from cliff import commandmanager
-
 import redditcli.commands.account
 from redditcli.api import client
+
+LOG = logging.getLogger(__name__)
 
 
 class HelpAction(argparse.Action):
@@ -55,7 +56,7 @@ class RedditShell(app.App):
             version='0.1',
             command_manager=commandmanager.CommandManager('reddit.cli'),
         )
-
+        self.log.debug('Inside Init')
         self._set_shell_commands(self._get_commands())
 
     def configure_logging(self):
@@ -68,6 +69,10 @@ class RedditShell(app.App):
             logging.getLogger('requests').setLevel(logging.WARNING)
 
     def initialize_app(self, argv):
+        self.log.debug('Inside Initialize app')
+        self.log.debug('Inside initialize app')
+        self._clear_shell_commands()
+        ver = '1.0'
         self.log.debug('Initializing App')
         self._set_shell_commands(self._get_commands(self))
         self.client = client.Client(base_url=self.redditapi_url,
@@ -81,6 +86,7 @@ class RedditShell(app.App):
     def _set_shell_commands(self, cmds_dict):
         for k, v in cmds_dict.items():
             self.command_manager.add_command(k, v)
+        self.log.debug('Inside set shell commands')
 
     def build_option_parser(self, description, version,
                             argparse_kwargs=None):
@@ -141,6 +147,7 @@ class RedditShell(app.App):
             '--username',
             action='store',
             dest='username',
+            default=None,
             help='Username for your registered Client application',
         )
 
@@ -148,6 +155,7 @@ class RedditShell(app.App):
             '--password',
             action='store',
             dest='password',
+            default=None,
             help='Password for your registered Client application',
         )
 
