@@ -69,13 +69,11 @@ class RedditShell(app.App):
             logging.getLogger('requests').setLevel(logging.WARNING)
 
     def initialize_app(self, argv):
-        self.log.debug('Inside Initialize app')
-        self.log.debug('Inside initialize app')
+        self.log.debug('Initializing App')
         self._clear_shell_commands()
         ver = '1.0'
-        self.log.debug('Initializing App')
-        self._set_shell_commands(self._get_commands(self))
-        self.client = client.Client(base_url=self.redditapi_url,
+        self._set_shell_commands(self._get_commands())
+        self.client = client.Client(base_url='test',#elf.redditapi_url,
                                     auth_url='https://www.reddit.com/api/v1/access_token',
                                     username=self.username,
                                     password=self.password,
@@ -103,6 +101,13 @@ class RedditShell(app.App):
             action='version',
             version='%(prog)s {0}'.format(version),
             help='Show program\'s version number and exit.',
+        )
+
+        parser.add_argument(
+            '--debug',
+            default=False,
+            action='store_true',
+            help='Show tracebacks on errors.',
         )
 
         parser.add_argument(
