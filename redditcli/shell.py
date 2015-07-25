@@ -52,6 +52,7 @@ class RedditShell(app.App):
 
     def __init__(self):
         super(RedditShell, self).__init__(
+            #TODO write proper description here
             description='Testing', #__doc__.strip(),
             version='0.1',
             command_manager=commandmanager.CommandManager('reddit.cli'),
@@ -70,16 +71,20 @@ class RedditShell(app.App):
 
     def initialize_app(self, argv):
         self.log.debug('Initializing App')
+
         self._clear_shell_commands()
+
         ver = '1.0'
+
         self._set_shell_commands(self._get_commands())
-        self.client = client.Client(base_url='test',#elf.redditapi_url,
+
+        self.client = client.Client(base_url=self.options.redditapi_url,
                                     auth_url='https://www.reddit.com/api/v1/access_token',
-                                    username=self.username,
-                                    password=self.password,
-                                    client_id=self.client_id,
-                                    client_secret=self.client_secret,
-                                    user_agent=self.user_agent)
+                                    username=self.options.username,
+                                    password=self.options.password,
+                                    client_id=self.options.client_id,
+                                    client_secret=self.options.client_secret,
+                                    user_agent=self.options.user_agent)
 
     def _set_shell_commands(self, cmds_dict):
         for k, v in cmds_dict.items():
@@ -88,6 +93,7 @@ class RedditShell(app.App):
 
     def build_option_parser(self, description, version,
                             argparse_kwargs=None):
+        self.log.debug('Inside option parser')
         argparse_kwargs = argparse_kwargs or {}
         parser = argparse.ArgumentParser(
             description=description,

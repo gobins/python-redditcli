@@ -51,6 +51,7 @@ class Client(object):
             headers=headers
         )
         data = response.json()
+        print(data['access_token'])
         return data['access_token'], data['expires_in'], data['scope'], data['token_type']
 
 
