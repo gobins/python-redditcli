@@ -19,7 +19,7 @@ class Client(object):
         self.log.debug('Initializing Client class')
 
         if not base_url:
-            base_url = 'http://reddit.com'
+            base_url = 'https://www.reddit.com'
 
         if not user_agent:
             user_agent = "python-app/0.1 by RedditCli"

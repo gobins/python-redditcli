@@ -6,6 +6,10 @@ import logging
 from cliff import command
 from cliff import show
 
+from redditcli.api import base
+from redditcli.api import account
+
+
 
 class GetKarma(show.ShowOne):
 
@@ -18,4 +22,7 @@ class GetKarma(show.ShowOne):
         )
 
     def take_action(self, parsed_args):
-        uri = '/api/v1/me/karma'
+        account = account.AccountManager(self.app.client).getkarma(parsed_args.name)
+        return account
+
+
