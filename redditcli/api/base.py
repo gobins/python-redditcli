@@ -1,7 +1,7 @@
 import logging
 import json
 
-LOG = logging.getLogger(__name__)
+log = logging.getLogger(__name__)
 
 
 class Resource(object):
@@ -9,6 +9,7 @@ class Resource(object):
     defaults = {}
 
     def __init__(self, manager, data):
+        log.debug('Initializing Resource class')
         self.manager = manager
         self._data = data
         self._set_defaults()
@@ -34,6 +35,7 @@ class Resource(object):
 
 class APIException(Exception):
     def __init__(self, error_code=None, error_message=None):
+        log.debug('Initializing APIException.')
         super(APIException, self).__init__(error_message)
         self.error_code = error_code
         self.error_message = error_message
@@ -65,6 +67,7 @@ class ResourceManager(object):
     resource_class = None
 
     def __init__(self, client):
+        log.debug('Initializing Base ResourceManager')
         self.client = client
 
     def find(self, **kwargs):

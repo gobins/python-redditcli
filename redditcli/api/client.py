@@ -1,14 +1,16 @@
 from __future__ import print_function
 import requests
-from redditcli.api import httpclient
 import logging
+
+from redditcli.api import httpclient
+from redditcli.api import account
 
 
 class Client(object):
 
     log = logging.getLogger(__name__)
 
-    def __init__(self, base_url, auth_url, username=None, password=None,
+    def __init__(self, base_api_url, auth_url, username=None, password=None,
                  client_id=None, client_secret=None, user_agent=None, auth_token=None):
 
         if auth_url:
@@ -18,18 +20,20 @@ class Client(object):
             )
         self.log.debug('Initializing Client class')
 
-        if not base_url:
-            base_url = 'https://www.reddit.com'
+        if not base_api_url:
+            base_api_url = 'https://oauth.reddit.com'
 
         if not user_agent:
             user_agent = "python-app/0.1 by RedditCli"
 
-        self.http_client = httpclient.HTTPClient(base_url, auth_token, user_agent)
+        self.http_client = httpclient.HTTPClient(base_api_url, user_agent, auth_token)
+
+        #Create all Resource Managers
+        self.account = account.AccountManager(self)
 
     def get_auth_token(self, auth_url=None, username=None, password=None,
                        client_id=None, client_secret=None):
 
-        self.log.debug('Retrieving authentication token')
         client_auth = requests.auth.HTTPBasicAuth(
             client_id,
             client_secret
@@ -51,14 +55,14 @@ class Client(object):
             headers=headers
         )
         data = response.json()
-        print(data['access_token'])
         return data['access_token'], data['expires_in'], data['scope'], data['token_type']
 
 
-def getClient(base_url=None, auth_url=None, username=None,
+def getClient(base_api_url=None, auth_url=None, username=None,
               password=None, client_id=None, client_secret=None, user_agent=None, auth_token=None):
+    log = logging.getLogger(__name__)
     return Client(
-        base_url=base_url,
+        base_api_url=base_api_url,
         auth_url=auth_url,
         username=username,
         password=password,

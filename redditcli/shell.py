@@ -57,7 +57,6 @@ class RedditShell(app.App):
             version='0.1',
             command_manager=commandmanager.CommandManager('reddit.cli'),
         )
-        self.log.debug('Inside Init')
         self._set_shell_commands(self._get_commands())
 
     def configure_logging(self):
@@ -78,7 +77,7 @@ class RedditShell(app.App):
 
         self._set_shell_commands(self._get_commands())
 
-        self.client = client.Client(base_url=self.options.redditapi_url,
+        self.client = client.Client(base_api_url=self.options.redditapi_url,
                                     auth_url='https://www.reddit.com/api/v1/access_token',
                                     username=self.options.username,
                                     password=self.options.password,
@@ -89,11 +88,9 @@ class RedditShell(app.App):
     def _set_shell_commands(self, cmds_dict):
         for k, v in cmds_dict.items():
             self.command_manager.add_command(k, v)
-        self.log.debug('Inside set shell commands')
 
     def build_option_parser(self, description, version,
                             argparse_kwargs=None):
-        self.log.debug('Inside option parser')
         argparse_kwargs = argparse_kwargs or {}
         parser = argparse.ArgumentParser(
             description=description,
@@ -136,7 +133,7 @@ class RedditShell(app.App):
             '--redditapi-url',
             action='store',
             dest='redditapi_url',
-            default='http://reddit.com',
+            default='https://oauth.reddit.com',
             help='Reddit API url',
         )
 
