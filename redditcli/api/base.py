@@ -29,7 +29,6 @@ class Resource(object):
 
     def __str__(self):
         vals = ", ".join(["%s='%s'" % (n, v) for n, v in self._data.iteritems()])
-
         return "%s [%s]" % (self.resource_name, vals)
 
 
@@ -96,8 +95,9 @@ class ResourceManager(object):
 
     def _get(self, url, response_key=None):
         resp = self.client.http_client.get(url)
+        json_resp = extract_json(resp, response_key)
         if resp.status_code == 200:
-            return self.resource_class(self, extract_json(resp, response_key))
+            return self.resource_class(self, json_resp)
 
     def _raise_api_exception(self, resp):
         try:

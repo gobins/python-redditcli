@@ -187,7 +187,10 @@ class RedditShell(app.App):
 
     def _get_commands(self):
         return {
-            'my-karma': redditcli.commands.account.GetKarma,
+            'my-karma': redditcli.commands.account.Karma,
+            'my-account': redditcli.commands.account.Me,
+            'my-friends': redditcli.commands.account.Friends,
+            'my-prefs': redditcli.commands.account.Prefs
         }
 
 

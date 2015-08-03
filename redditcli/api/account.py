@@ -15,3 +15,12 @@ class AccountManager(base.ResourceManager):
 
     def getkarma(self):
         return self._get('/api/v1/me/karma')
+
+    def getfriends(self):
+        return self._get('/api/v1/me/friends', 'data')
+
+    def getprefs(self):
+        return self._get('/api/v1/me/prefs')
+
+    def gettrophies(self):
+        return self._get('/api/v1/me/trophies')

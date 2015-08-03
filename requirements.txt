@@ -7,4 +7,4 @@ pyparsing==2.0.3
 six==1.9.0
 stevedore==1.6.0
 wsgiref==0.1.2
-requests==2.7.0
+requests==2.5.3

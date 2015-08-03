@@ -18,7 +18,7 @@ setup(
     name=PROJECT,
     version=VERSION,
 
-    description='Demo app for test',
+    description='Demo app for tests',
 
     author='Gobin Sougrakpam',
     packages=['redditcli'],
@@ -28,7 +28,7 @@ setup(
         'console_scripts': [
             'redditcli = redditcli.main:main'
         ],
-        'redditcli.test': [
+        'redditcli.tests': [
             'list = redditcli.list:Files',
         ],
     },

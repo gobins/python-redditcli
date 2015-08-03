@@ -21,7 +21,6 @@ class HTTPClient(object):
         self.base_api_url = base_api_url
         self.log.debug('Base API url set to: %s', self.base_api_url)
         self.log.debug('User Agent is set to: %s', user_agent)
-        self.log.debug('Authorization Token: %s', auth_token)
         self.auth_token = auth_token
         self.user_agent = user_agent
 
@@ -30,8 +29,6 @@ class HTTPClient(object):
         self.log.debug('Initiating GET request to: %s', self.base_api_url+url)
         headers = self._update_headers(headers)
         resp = requests.get(self.base_api_url + url, headers=headers)
-        data = resp.json()
-        self.log.debug('Checking response: %s', data)
         #return requests.get(self.base_api_url + url, headers=headers)
         return resp
 
@@ -48,15 +45,11 @@ class HTTPClient(object):
             headers = {}
 
         auth_token = headers.get('Authorization', self.auth_token)
-        self.log.debug('Updating header.')
-        self.log.debug('Auth Token: %s', auth_token)
-
         # TODO Not really clear what's happening here
         if auth_token:
             headers['Authorization'] = "bearer "+auth_token
 
         user_agent = headers.get('User-Agent', self.user_agent)
-        self.log.debug('User-Agent: %s', user_agent)
         if user_agent:
             headers['User-Agent'] = user_agent
         return headers
